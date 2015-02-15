@@ -19,6 +19,7 @@ package com.area_b.gradle.plugins.hbm.tools
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.hibernate.cfg.Configuration
+import org.hibernate.cfg.ImprovedNamingStrategy
 import org.hibernate.tool.hbm2ddl.SchemaExport
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory
@@ -65,6 +66,8 @@ class SchemaExportPlugin implements Plugin<Project> {
         def dialectName = dialectClass.getCanonicalName()
         def configuration = new Configuration()
         configuration.setProperty(HIBERNATE_DIALECT, dialectName)
+        configuration.setNamingStrategy(ImprovedNamingStrategy.INSTANCE)
+
         def readerFactory = new SimpleMetadataReaderFactory()
 
         resources.each({ resource ->
